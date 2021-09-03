@@ -26,7 +26,7 @@ vector<vector<long long> > mul(vector<vector<long long> > a, vector<vector<long 
 	return res;
 }
  
-vector<vector<long long> > matrxi_power(vector<vector<long long> > a, long long b)
+vector<vector<long long> > matrix_power(vector<vector<long long> > a, long long b)
 {
 	if (b == 1)
 		return a;
