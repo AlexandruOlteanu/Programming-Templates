@@ -1,3 +1,6 @@
+/*
+    Template created by Alexandru Olteanu
+*/
 vector<pair<ll, int> v[maxn];
 int p[maxn];
 vector<tuple<ll, int, int>> e;
