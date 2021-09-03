@@ -1,5 +1,5 @@
 /*
-    Template created by Alexandru Olteanu!
+    Template created by Alexandru Olteanu
 */
 ll fenw[maxn];
 void modify_fenwick(int x,int n, ll val){
