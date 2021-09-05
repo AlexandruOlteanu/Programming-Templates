@@ -2,17 +2,17 @@
     Template created by Alexandru Olteanu
 */
 template<typename A>
-struct fenwick{
-    vector<A> fenw;
+struct FenwickTree{
+    vector<A> fenwick;
     int n;
-    fenwick(int length){
-        fenw.resize(length);
+    FenwickTree(int length){
+        fenwick.resize(length);
         n = length - 1;
     }
 
     void modify_fenwick(int x, ll val){
         for(; x <= n; x += x & -x){
-            fenw[x] += val;
+            fenwick[x] += val;
         }
         return;
     }
@@ -20,7 +20,7 @@ struct fenwick{
     ll get_fenwick(int x){
         ll val = 0;
         for(; x > 0; x -= x & -x){
-            val += fenw[x];
+            val += fenwick[x];
         }
         return val;
     }
