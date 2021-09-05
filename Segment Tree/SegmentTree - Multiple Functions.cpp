@@ -1,6 +1,3 @@
-/*
-    Template created by Alexandru Olteanu
-*/
 template<typename A>
 struct SegmentTree{
     vector<A> array;
@@ -32,10 +29,13 @@ struct SegmentTree{
 
     void push_segment(int node, int l, int r, int p){
         if(lazy[node] != 0){
-            tree[node] = (r - l + 1) - tree[node];
             if(l != r){
+                tree[node] = function(tree[node * 2], tree[node * 2 + 1], p);
                 lazy[node * 2] ^= 1;
                 lazy[node * 2 + 1] ^= 1;
+            }
+            else{
+                tree[node] = array[l];
             }
             lazy[node] = 0;
         }
