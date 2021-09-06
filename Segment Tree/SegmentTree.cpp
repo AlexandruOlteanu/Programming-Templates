@@ -14,7 +14,7 @@ struct SegmentTree{
     }
 
     A function(A a, A b){
-        return a + b;
+        return a + b;       //Probably it needs changes
     }
 
     void build_segment(int node, int l, int r){
@@ -33,7 +33,7 @@ struct SegmentTree{
         if(lazy[node] != 0){
             if(l != r){
                 tree[node] = function(tree[node * 2], tree[node * 2 + 1]);
-                lazy[node * 2] ^= 1;
+                lazy[node * 2] ^= 1;                    //Probably it needs changes
                 lazy[node * 2 + 1] ^= 1;
             }
             else{
