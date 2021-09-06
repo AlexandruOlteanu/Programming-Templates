@@ -14,7 +14,7 @@ struct SegmentTree{
     }
 
     A function(A a, A b){
-        return (a < b ? a : b);
+        return (a < b ? a : b);     //Probably it needs changes
     }
 
     void build_segment(int node, int l, int r){
@@ -31,7 +31,7 @@ struct SegmentTree{
 
     void push_segment(int node, int l, int r){
         if(lazy[node] != 0){
-            tree[node] += lazy[node];
+            tree[node] += lazy[node];      //Probably it needs changes
             if(l != r){
                 lazy[node * 2] += lazy[node];
                 lazy[node * 2 + 1] += lazy[node];
@@ -58,13 +58,16 @@ struct SegmentTree{
 
     A ask_segment(int node, int l, int r, int L, int R){
         push_segment(node, l, r);
-        if(r < L || l > R) return infll;
         if(l >= L && r <= R){
             return tree[node];
         }
         int mid = l + (r - l) / 2;
-        A ask1 = ask_segment(node * 2, l, mid, L, R);
-        A ask2 = ask_segment(node * 2 + 1, mid + 1, r, L, R);
-        return function(ask1, ask2);
+        if(mid < L){
+            return ask_segment(node * 2 + 1, mid + 1, r, L, R);
+        }
+        if(mid >= R){
+            return ask_segment(node * 2, l, mid, L, R);
+        }
+        return function(ask_segment(node * 2, l, mid, L, R), ask_segment(node * 2 + 1, mid + 1, r, L, R));
     }
 };
