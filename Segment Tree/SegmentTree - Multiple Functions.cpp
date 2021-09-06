@@ -59,16 +59,16 @@ struct SegmentTree{
 
     A ask_segment(int node, int l, int r, int L, int R, int p){
         push_segment(node, l, r, p);
-        if(r < L || l > R){
-            if(p == 1)return -infll;
-            else return infll;
-        }
         if(l >= L && r <= R){
             return tree[node];
         }
         int mid = l + (r - l) / 2;
-        A ask1 = ask_segment(node * 2, l, mid, L, R, p);
-        A ask2 = ask_segment(node * 2 + 1, mid + 1, r, L, R, p);
-        return function(ask1, ask2, p);
+        if(mid < L){
+            return ask_segment(node * 2 + 1, mid + 1, r, L, R, p);
+        }
+        if(mid >= R){
+            return ask_segment(node * 2, l, mid, L, R);
+        }
+        return function(ask_segment(node * 2, l, mid, L, R), ask_segment(node * 2 + 1, mid + 1, r, L, R, p));
     }
 };
