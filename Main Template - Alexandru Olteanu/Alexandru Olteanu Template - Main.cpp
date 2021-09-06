@@ -8,6 +8,9 @@ using namespace std;
 #pragma GCC target("fma,sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
 #pragma GCC optimize("unroll-loops")
 // Useful
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+#define FastEverything  ios_base::sync_with_stdio(0); cin.tie(0);cout.tie(0);
+#define HighPrecision cout<<fixed<<setprecision(17);
 typedef long long ll;
 typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
@@ -26,8 +29,8 @@ ofstream out("output.txt");
 #define all(x) x.begin(),x.end()
 #define rall(x) x.rbegin(), x.rend()
 
-//#define cin in
-//#define cout out
+// #define cin in
+// #define cout out
 
 const ll infll = 9e18;
 const int inf = 2e9;
@@ -37,16 +40,13 @@ const ll maxn = 3e5 + 2;
 
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    cout<<fixed<<setprecision(15);
-    
-    
+    FastEverything
+    HighPrecision
     int test = 1;
     //cin>>test;
     for(int tt = 1; tt <= test; ++tt){
-          
-
+        
+        
     }
     return 0;
 }
