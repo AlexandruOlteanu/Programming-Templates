@@ -11,7 +11,7 @@ struct SegmentTree{
     }
 
     A function(A a, A b, int p){
-        if(p == 1) return (a > b ? a : b);
+        if(p == 1) return (a > b ? a : b); //Probably it needs changes
         return (a < b ? a : b);
     }
 
@@ -30,7 +30,7 @@ struct SegmentTree{
     void push_segment(int node, int l, int r, int p){
         if(lazy[node] != 0){
             if(l != r){
-                tree[node] = function(tree[node * 2], tree[node * 2 + 1], p);
+                tree[node] = function(tree[node * 2], tree[node * 2 + 1], p); //Probably it needs changes
                 lazy[node * 2] ^= 1;
                 lazy[node * 2 + 1] ^= 1;
             }
