@@ -67,8 +67,8 @@ struct SegmentTree{
             return ask_segment(node * 2 + 1, mid + 1, r, L, R, p);
         }
         if(mid >= R){
-            return ask_segment(node * 2, l, mid, L, R);
+            return ask_segment(node * 2, l, mid, L, R, p);
         }
-        return function(ask_segment(node * 2, l, mid, L, R), ask_segment(node * 2 + 1, mid + 1, r, L, R, p));
+        return function(ask_segment(node * 2, l, mid, L, R, p), ask_segment(node * 2 + 1, mid + 1, r, L, R, p), p);
     }
 };
