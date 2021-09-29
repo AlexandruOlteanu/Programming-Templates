@@ -3,25 +3,29 @@
 */
 template<typename A>
 struct FenwickTree{
-    vector<A> fenwick;
+    vector<A> array;
     int n;
     FenwickTree(int length){
-        fenwick.resize(length);
+        array.resize(length + 1);
         n = length - 1;
     }
 
-    void modify_fenwick(int x, ll val){
+    void modify(int x, ll val){
         for(; x <= n; x += x & -x){
             fenwick[x] += val;
         }
         return;
     }
-
-    ll get_fenwick(int x){
+    
+    ll calc(int x){
         ll val = 0;
         for(; x > 0; x -= x & -x){
-            val += fenwick[x];
+            val += array[x];
         }
         return val;
+    }
+    
+    ll get(int l, int r){
+        return calc(r) - calc(l - 1);   
     }
 };
