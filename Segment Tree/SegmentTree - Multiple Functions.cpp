@@ -30,7 +30,7 @@ struct SegmentTree{
         return;
     }
 
-    void push(int node, int l, int r, p){
+    void push(int node, int l, int r, int p){
         if(lazy[node] != 0){
             if(l != r){
                 tree[node] = func(tree[node * 2], tree[node * 2 + 1], p);
@@ -45,7 +45,7 @@ struct SegmentTree{
         return;
     }
 
-    void update(int node, int l, int r, int L, int R, p){
+    void update(int node, int l, int r, int L, int R, int p){
         push(node, l, r, p);
         if(r < L || l > R)return;
         if(l >= L && r <= R){
