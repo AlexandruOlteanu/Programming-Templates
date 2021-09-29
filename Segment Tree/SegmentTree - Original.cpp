@@ -8,9 +8,9 @@ struct SegmentTree{
     vector<A> lazy;
 
     SegmentTree(int n){
-        array.resize(n);
-        tree.resize(4 * n + 1);
-        lazy.resize(4 * n + 1);
+        array.resize(n + 1);
+        tree.resize(4 * (n + 1) + 1);
+        lazy.resize(4 * (n + 1) + 1);
     }
 
     A func(A a, A b){
