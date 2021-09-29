@@ -41,7 +41,8 @@ struct SparseTable{
     }
 
     ll get(A start, A finish){
-        ll ans = -1;
+        ll ans = 0;
+        bool ok = 1;
         while(start <= finish){
             A dist = finish - start + 1;
             A power = 1, sum = 0;
@@ -51,8 +52,9 @@ struct SparseTable{
             }
             --sum;
             power >>= 1;
-            if(ans < 0){
+            if(ok){
                 ans = matrix[start][sum];
+                ok = 0;
             }
             else{
                 ans = func(ans, matrix[start][sum]);
