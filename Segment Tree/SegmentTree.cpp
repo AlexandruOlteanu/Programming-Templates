@@ -13,26 +13,26 @@ struct SegmentTree{
         lazy.resize(4 * n + 1);
     }
 
-    A function(A a, A b){
+    A func(A a, A b){
         return a + b;       //Probably it needs changes
     }
 
-    void build_segment(int node, int l, int r){
+    void build(int node, int l, int r){
         if(l == r){
             tree[node] = array[l];
             return;
         }
         int mid = l + (r - l) / 2;
-        build_segment(node * 2, l, mid);
-        build_segment(node * 2 + 1, mid + 1, r);
-        tree[node] = function(tree[node * 2], tree[node * 2 + 1]);
+        build(node * 2, l, mid);
+        build(node * 2 + 1, mid + 1, r);
+        tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
         return;
     }
 
-    void push_segment(int node, int l, int r){
+    void push(int node, int l, int r){
         if(lazy[node] != 0){
             if(l != r){
-                tree[node] = function(tree[node * 2], tree[node * 2 + 1]);
+                tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
                 lazy[node * 2] ^= 1;                    //Probably it needs changes
                 lazy[node * 2 + 1] ^= 1;
             }
@@ -44,33 +44,33 @@ struct SegmentTree{
         return;
     }
 
-    void update_segment(int node, int l, int r, int L, int R){
-        push_segment(node, l, r);
+    void update(int node, int l, int r, int L, int R){
+        push(node, l, r);
         if(r < L || l > R)return;
         if(l >= L && r <= R){
             lazy[node] ^= 1;
-            push_segment(node, l, r);
+            push(node, l, r);
             return;
         }
         int mid = l + (r - l) / 2;
-        update_segment(node * 2, l, mid, L, R);
-        update_segment(node * 2 + 1, mid + 1, r, L, R);
-        tree[node] = function(tree[node * 2], tree[node * 2 + 1]);
+        update(node * 2, l, mid, L, R);
+        update(node * 2 + 1, mid + 1, r, L, R);
+        tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
         return;
     }
 
-    A ask_segment(int node, int l, int r, int L, int R){
-        push_segment(node, l, r);
+    A get(int node, int l, int r, int L, int R){
+        push(node, l, r);
         if(l >= L && r <= R){
             return tree[node];
         }
         int mid = l + (r - l) / 2;
         if(mid < L){
-            return ask_segment(node * 2 + 1, mid + 1, r, L, R);
+            return get(node * 2 + 1, mid + 1, r, L, R);
         }
         if(mid >= R){
-            return ask_segment(node * 2, l, mid, L, R);
+            return get(node * 2, l, mid, L, R);
         }
-        return function(ask_segment(node * 2, l, mid, L, R), ask_segment(node * 2 + 1, mid + 1, r, L, R));
+        return func(get(node * 2, l, mid, L, R), get(node * 2 + 1, mid + 1, r, L, R));
     }
 };
