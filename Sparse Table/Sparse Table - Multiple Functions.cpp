@@ -24,10 +24,10 @@ struct SparseTable{
     }
     
     void build(int l, int r, int p){
-        int max_log = 0, p = 1;
+        int max_log = 0, power = 1;
         int n = r - l + 1;
-        while(p <= n){
-            p <<= 1;
+        while(power <= n){
+            power <<= 1;
             ++max_log;
         }
         for(int j = 0; j < max_log; ++j){
@@ -42,7 +42,8 @@ struct SparseTable{
     }
 
     ll get(A start, A finish, int p){
-        ll ans = -1;
+        ll ans = 0;
+        bool ok = 1;
         while(start <= finish){
             A dist = finish - start + 1;
             A power = 1, sum = 0;
@@ -52,8 +53,9 @@ struct SparseTable{
             }
             --sum;
             power >>= 1;
-            if(ans < 0){
+            if(ok){
                 ans = matrix[start][sum];
+                ok = 0;
             }
             else{
                 ans = func(ans, matrix[start][sum], p);
