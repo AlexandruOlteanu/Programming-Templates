@@ -7,11 +7,11 @@ struct SparseTable{
     vector<vector<A>> matrix;
     vector<A> array;
     vector<A> log_values;
-
+    
     SparseTable(int n){
-        int max_log = 0, p = 1;
-        while(p <= n){
-            p <<= 1;
+        int max_log = 0, power = 1;
+        while(power <= n){
+            power <<= 1;
             ++max_log;
         }
         array.resize(n + 1);
@@ -21,27 +21,25 @@ struct SparseTable{
             matrix[i].resize(max_log);
         }
     }
-
     A func(A a, A b){
-        if(a > b)return a;
-        return b;               //Probably it needs changes
+        return min(a, b);//Probably it needs changes
     }
     
     void build(int l, int r){
-        int max_log = 0, p = 1;
+        int max_log = 0, power = 1;
         int n = r - l + 1;
-        while(p <= n){
-            p <<= 1;
+        while(power <= n){
+            power <<= 1;
             ++max_log;
         }
         int number = 0;
-        p = 1;
+        power = 1;
         for(int i = 1; i <= n; ++i){
-            while(p <= i){
-                p <<= 1;
+            while(power <= i){
+                power <<= 1;
                 ++number;
             }
-            p >>= 1;
+            power >>= 1;
             --number;
             log_values[i] = number;
         }
