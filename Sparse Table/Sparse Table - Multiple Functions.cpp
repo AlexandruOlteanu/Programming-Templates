@@ -18,12 +18,12 @@ struct SparseTable{
             matrix[i].resize(max_log);
         }
     }
-    A func(A a, A b, int p){
-        if(p == 1) return min(a, b);
+    A func(A a, A b, int func_type){
+        if(func_type == 1) return min(a, b);
         return max(a, b);    //Probably it needs changes
     }
     
-    void build(int l, int r, int p){
+    void build(int l, int r, int func_type){
         int max_log = 0, power = 1;
         int n = r - l + 1;
         while(power <= n){
@@ -36,32 +36,14 @@ struct SparseTable{
                     matrix[i][j] = array[i];
                     continue;
                 }
-                matrix[i][j] = func(matrix[i][j - 1], matrix[i + (1 << (j - 1))][j - 1], p);
+                matrix[i][j] = func(matrix[i][j - 1], matrix[i + (1 << (j - 1))][j - 1], func_type);
             }
         }
     }
 
-    ll get(A start, A finish, int p){
-        ll ans = 0;
-        bool ok = 1;
-        while(start <= finish){
-            A dist = finish - start + 1;
-            A power = 1, sum = 0;
-            while(power <= dist){
-                power <<= 1;
-                ++sum;
-            }
-            --sum;
-            power >>= 1;
-            if(ok){
-                ans = matrix[start][sum];
-                ok = 0;
-            }
-            else{
-                ans = func(ans, matrix[start][sum], p);
-            }
-            start += power;
-        }
-        return ans;
+    ll get(A start, A finish, int func_type){
+        ll distance = finish - start + 1;
+        ll biggest_power = log_values[distance];
+        return func(matrix[start][biggest_power], matrix[finish - (1 << biggest_power) + 1][biggest_power], func_type);
     }
 };
