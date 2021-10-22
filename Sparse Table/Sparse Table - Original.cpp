@@ -6,6 +6,8 @@ struct SparseTable{
     
     vector<vector<A>> matrix;
     vector<A> array;
+    vector<A> log_values;
+
     SparseTable(int n){
         int max_log = 0, p = 1;
         while(p <= n){
@@ -13,13 +15,16 @@ struct SparseTable{
             ++max_log;
         }
         array.resize(n + 1);
+        log_values.resize(n + 1);
         matrix.resize(n + 1);
         for(int i = 1; i <= n; ++i){
             matrix[i].resize(max_log);
         }
     }
+
     A func(A a, A b){
-        return a + b    //Probably it needs changes
+        if(a > b)return a;
+        return b;               //Probably it needs changes
     }
     
     void build(int l, int r){
@@ -28,6 +33,17 @@ struct SparseTable{
         while(p <= n){
             p <<= 1;
             ++max_log;
+        }
+        int number = 0;
+        p = 1;
+        for(int i = 1; i <= n; ++i){
+            while(p <= i){
+                p <<= 1;
+                ++number;
+            }
+            p >>= 1;
+            --number;
+            log_values[i] = number;
         }
         for(int j = 0; j < max_log; ++j){
             for(int i = l; i <= r - (1 << j) + 1; ++i){
@@ -41,26 +57,8 @@ struct SparseTable{
     }
 
     ll get(A start, A finish){
-        ll ans = 0;
-        bool ok = 1;
-        while(start <= finish){
-            A dist = finish - start + 1;
-            A power = 1, sum = 0;
-            while(power <= dist){
-                power <<= 1;
-                ++sum;
-            }
-            --sum;
-            power >>= 1;
-            if(ok){
-                ans = matrix[start][sum];
-                ok = 0;
-            }
-            else{
-                ans = func(ans, matrix[start][sum]);
-            }
-            start += power;
-        }
-        return ans;
+        ll distance = finish - start + 1;
+        ll biggest_power = log_values[distance];
+        return func(matrix[start][biggest_power], matrix[finish - (1 << biggest_power) + 1][biggest_power]);
     }
 };
