@@ -1,3 +1,4 @@
+	
 /*
     Template created by Alexandru Olteanu
 */
@@ -7,12 +8,12 @@ struct FenwickTree{
     int n;
     FenwickTree(int length){
         array.resize(length + 1);
-        n = length - 1;
+        n = length;
     }
-
+ 
     void modify(int x, ll val){
         for(; x <= n; x += x & -x){
-            fenwick[x] += val;
+            array[x] += val;
         }
         return;
     }
